@@ -3,10 +3,10 @@
 
 
 class City:
-    def __init__(self, name, lat, lng):
+    def __init__(self, name, lat, lon):
         self.name = name
         self.lat = lat
-        self.lon = lng
+        self.lon = lon
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -36,7 +36,8 @@ def cityreader(cities=[]):
         reader = csv.DictReader(csvfile)
         # looping through each city in reader and adding City objects to cities
         for row in reader:
-            cities.append(City(row['city'], row['lat'], row['lng']))
+            cities.append(City(row['city'], float(
+                row['lat']), float(row['lng'])))
 
     return cities
 
