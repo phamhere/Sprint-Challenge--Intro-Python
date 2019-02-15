@@ -30,8 +30,11 @@ def cityreader(cities=[]):
   # `cities` list
     import csv
 
+    # opening the cities.csv file
     with open('src/cityreader/cities.csv', newline='') as csvfile:
+        # reading through the csvfile with csv.DictReader and saving to variable reader
         reader = csv.DictReader(csvfile)
+        # looping through each city in reader and adding City objects to cities
         for row in reader:
             cities.append(City(row['city'], row['lat'], row['lng']))
 
