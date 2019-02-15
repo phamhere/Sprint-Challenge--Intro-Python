@@ -46,7 +46,7 @@ cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(c)
+    print(c.name, c.lat, c.lon)
 
 # STRETCH GOAL!
 #
@@ -87,5 +87,32 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # TODO Ensure that the lat and lon valuse are all floats
     # Go through each city and check to see if it falls within
     # the specified coordinates.
+    import csv
+
+    minLat = min(lat1, lat2)
+    maxLat = max(lat1, lat2)
+    minLon = min(lon1, lon2)
+    maxLon = max(lon1, lon2)
+
+    with open('src/cityreader/cities.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            # checking if city lat and lon are within coordinate square of user inputs
+            if minLat <= float(row['lat']) <= maxLat and minLon <= float(row['lng']) <= maxLon:
+                within.append(City(row['city'], float(
+                    row['lat']), float(row['lng'])))
 
     return within
+
+
+scities = cityreader_stretch(45, -100, 32, -120)
+
+# test to see if match the cities in example above
+# for c in scities:
+#     print(c.name, c.lat, c.lon)
+
+scities2 = cityreader_stretch(40, -50, 12, -120)
+
+# test to see if match the cities in test_stretch.py
+# for c in scities2:
+#     print(c.name, c.lat, c.lon)
